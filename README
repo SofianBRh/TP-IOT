@@ -1,0 +1,33 @@
+This code is a server that listens for temperature and humidity data sent from devices via HTTP requests. When it receives data, it processes the data and writes it to an InfluxDB database. The server listens for temperature data on port 7123 and humidity data on port 7143.
+Dependencies
+
+    @influxdata/influxdb-client: This library is used to connect to and write data to an InfluxDB database.
+    http: This built-in Node.js library is used to create HTTP servers that listen for requests.
+    minimist: This library is used to parse command line arguments passed when starting the server.
+
+Configuration
+
+The following constants can be modified to adjust the behavior of the server:
+
+    url: The URL of the InfluxDB instance.
+    token: The authentication token for the InfluxDB instance.
+    org: The name of the InfluxDB organization the bucket belongs to.
+    bucket: The name of the InfluxDB bucket to write data to.
+
+Usage
+
+To start the server, run the following command in the terminal:
+
+node app.js
+
+To send temperature data to the server, send an HTTP POST request to http://localhost:7123 with the temperature data in the request body as a JSON string in the following format:
+
+{
+  "data": "CodeValueThreshold"
+}
+
+Code is a 2-digit hexadecimal string representing an identifier for the device that sent the data. Value is a 4-digit hexadecimal string representing the temperature in degrees Celsius. Threshold is an optional 4-digit hexadecimal string representing the temperature threshold at which an alert should be triggered.
+
+To send humidity data to the server, send an HTTP POST request to http://localhost:7143 with the humidity data in the request body in the same format as for temperature data. Value represents the humidity in percent and Threshold represents the humidity threshold at which an alert should be triggered.
+
+Change the config of .env to put your variables in the environment. And think about power on your influx DB.
